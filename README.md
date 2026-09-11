@@ -1,30 +1,34 @@
 # Plan Crime Resources Around High-Risk Times
 
-## An analysis of Chicago crime trends, rush hours, holidays, and seasonal patterns
+## Chicago crime patterns and six-month forecasts for better resource planning
 
 **Author**: Siwar Ehwass
 
 ## Business Problem
 
-Chicago public safety teams need to understand when reported crime is more likely to increase. This project studies past crime reports to identify long-term trends, busy times of day, high-count holidays, and repeating seasonal patterns. These findings can support better planning and help city teams prepare before demand increases.
+Chicago law enforcement must allocate personnel and prevention resources across periods of changing demand. Historical crime reports are analyzed to identify long-term trends, rush-hour differences, holiday peaks, and seasonal patterns. Theft and Battery counts are also forecasted for the next six months to support staffing and resource-allocation decisions.
 
 ## Data
 
-- **Source**: [Chicago Police Department: Crimes from 2001 to Present](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/about_data)
-- **Time range**: January 1, 2001 to September 3, 2026
-- **Size**: 8,627,693 reported crimes
-- **Main information used**: date, time, and crime type
-- **Added information**: the name of the US holiday, when a crime occurred on a holiday
+* **Source**: [Chicago Police Department: Crimes from 2001 to Present](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/about_data)
+* **Time range**: January 1, 2001 to September 3, 2026
+* **Size**: 8,627,693 reported crimes
+* **Main information used**: date, time, and crime type
+* **Added information**: US holiday name
 
-The 2026 data is incomplete. For this reason, the yearly comparison uses complete years from 2001 through 2025.
+Since 2026 is incomplete, I used complete years from 2001 through 2025 for the yearly comparison.
 
 ## Methods
 
-- Combined 26 yearly data files into one dataset.
-- Defined AM rush hour as 7:00 AM to before 10:00 AM and PM rush hour as 4:00 PM to before 7:00 PM.
-- Matched each date with the US holiday calendar.
-- Used seasonal decomposition to find weekly and yearly patterns. The seasonality analysis used the ten most recent complete years, from 2016 through 2025.
-- **Forecasting method**: 
+* Combined 26 yearly crime files.
+* Compared crime during AM and PM rush hours.
+* Matched crime dates with the US holiday calendar.
+* Used seasonal decomposition to study weekly and yearly patterns.
+* Created monthly Theft and Battery time series.
+* Checked stationarity and used ACF and PACF plots to choose initial models.
+* Compared manually selected models with tuned Auto ARIMA models.
+* Tested each model on the final six months of known data.
+* Used the complete time series to forecast six new months.
 
 ## Results
 
@@ -32,60 +36,73 @@ The 2026 data is incomplete. For this reason, the yearly comparison uses complet
 
 ![Chicago crime over time](visuals/chicago_crime_over_time.png)
 
-> Reported crime decreased by **51.1%**, from 485,974 reports in 2001 to 237,695 reports in 2025. However, 11 crime types increased over the same period, so the overall decrease does not apply to every type of crime.
+> Reported crime decreased by **51.1%**, from 485,974 reports in 2001 to 237,695 in 2025. However, 11 crime types increased during the same period, so the overall decrease does not tell the full story.
 
 ### Crime Follows a Yearly Pattern
 
 ![Yearly seasonal pattern](visuals/yearly_seasonal_pattern.png)
 
-> Reported crime follows a repeating yearly pattern. Crime is usually highest in **July** and lowest in **February**. This suggests that seasonal demand should be considered when planning resources.
+> Reported crime usually reaches its highest point in **July** and its lowest point in **February**. Planning for the summer increase should begin before July.
 
 ### PM Rush Hour Has More Reported Crime
 
 ![AM and PM rush-hour crime](visuals/am_pm_rush_hour.png)
 
-> PM rush hour had **1,352,388** reported crimes, compared with **863,343** during AM rush hour. PM rush hour had 489,045 more reports. Motor vehicle theft was also more common during PM rush hour.
+> PM rush hour had **1,352,388** reported crimes, compared with **863,343** during AM rush hour. Motor vehicle theft was also more common during PM rush hour.
 
-### New Year's Day Has the Highest Holiday Count
+### New Year’s Day Has the Highest Holiday Count
 
 ![Holidays with the most reported crime](visuals/top_holidays.png)
 
-> **New Year's Day** had the highest number of reported crimes among US holidays, with 37,240 reports. Independence Day and Labor Day were the next two highest.
+> **New Year’s Day** had the highest holiday crime count, followed by Independence Day and Labor Day.
 
-## Model
+## Forecasting Results
 
-`[The forecasting model has not been completed yet. Add the final model name, what it predicts, the forecast period, and how it was tested.]`
+### Theft Forecast
 
-### Forecast Compared with Actual Crime
+I compared a manually selected seasonal model with a tuned Auto ARIMA model. The manual model performed better on unseen data, so I selected it for the final Theft forecast.
 
-**Key metrics**
+* **Average monthly error**: approximately 262 crimes
+* **Average percentage error**: **6.17%**
 
-> 
+![Theft forecast for the next six months](visuals/theft_forecast_next_6_months.png)
+
+> Theft is forecasted to decrease from approximately **4,124 crimes** in the first forecast month to **3,093 crimes** in the final month. This is a predicted decrease of approximately **1,030 crimes**, or **24.99%**.
+
+### Battery Forecast
+
+* **Selected model**: `[Add final Battery model]`
+* **Average monthly error**: `[Add Battery MAE]`
+* **Average percentage error**: `[Add Battery MAPE]`
+
+`![Battery forecast for the next six months](visuals/battery_forecast_next_6_months.png)`
+
+> Battery is forecasted to change from **[beginning count]** to **[final count]** crimes. This is a net change of **[raw change]** crimes, or **[percentage change]%**.
 
 ## Recommendations
 
-- Plan more staff and prevention resources for PM rush hour, when reported crime is higher than during AM rush hour.
-- Prepare additional coverage for July and begin planning before the summer increase.
-- Review staffing needs around New Year's Day, Independence Day, and Labor Day.
-- Continue tracking the crime types that increased even while total reported crime decreased.
+* Put more staff and prevention resources into PM rush hour, where reported crime is much higher.
+* Prepare for the yearly increase before July instead of reacting after crime has already risen.
+* Review coverage around New Year’s Day, Independence Day, and Labor Day.
+* Theft is forecasted to decrease, but this should not be treated as a reason to make large resource cuts. The forecast still has uncertainty.
+* Compare the final Theft and Battery forecasts to decide which crime needs the larger share of flexible resources.
+* Update the forecast every month as new reports become available.
 
 ## Limitations and Next Steps
 
-- The data includes reported crimes only. Some crimes may not be reported.
-- The analysis shows patterns, but it does not prove that rush hour, holidays, or seasons cause crime.
-- Holiday totals are combined across many years and may be affected by changes in reporting and holiday-calendar rules.
-- The current analysis predicts neither specific crime types nor neighborhoods.
-- The next step is to build and test a forecasting model, then compare predicted monthly crime with actual monthly crime.
-- Future work could forecast crime by neighborhood or crime type to support more focused planning.
+* The dataset includes reported crimes only.
+* These patterns show when crime is higher, but they do not prove what caused it.
+* The forecasts cover Chicago as a whole and do not show which neighborhoods need the most support.
+* Weather, major events, policy changes, and other outside factors were not included.
+* A useful next step would be forecasting by district and time of day for more focused resource planning.
 
 ## Project Links
 
-- [View the analysis notebook](notebooks/02_crime_analysis.ipynb)
-- [View the visuals folder](https://github.com/swirita/Chicago-Crime-Analysis-and-Forecasting/tree/main/visuals)
-- [View the original data source](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/about_data)
+* [View the analysis notebook](notebooks/02_crime_analysis.ipynb)
+* [View the forecasting notebook](notebooks/03_crime_forecasting.ipynb)
+* [View the visuals folder](https://github.com/swirita/Chicago-Crime-Analysis-and-Forecasting/tree/main/visuals)
+* [View the original data source](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/about_data)
 
 ## For Further Information
 
-The full notebook includes the top crime types during each rush hour, the top crime types on the three highest-count holidays, the crime types that moved against the overall trend, and additional seasonal patterns.
-
-For any additional questions, please contact **[add email address]**.
+For any questions, contact **[siwarehwass@gmail.com](mailto:siwarehwass@gmail.com)**.
