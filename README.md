@@ -77,6 +77,16 @@ Chicago law enforcement must allocate personnel and prevention resources during 
 
 > Both crimes are forecasted to decrease, but Theft is expected to remain higher. By January 2027, the forecast reaches approximately **3,093 Theft incidents** and **2,936 Battery incidents**.
 
+## Interactive Tableau Dashboard
+
+This interactive dashboard allows users to explore reported Chicago crime patterns from 2001 through 2026. Users can compare yearly crime counts, common crime types, rush-hour patterns, and police districts.
+
+> **Note:** The 2026 data is incomplete and includes reports through August 25 only.
+
+![Chicago Crime Tableau Dashboard](visuals/chicago_crime_tableau_dashboard.png)
+
+[View the interactive dashboard on Tableau Public](https://public.tableau.com/shared/7Y9C3CT8S?:display_count=n&:origin=viz_share_link)
+
 ## Recommendations
 
 * Put more staff and prevention resources into PM rush hour, when reported crime is much higher.
