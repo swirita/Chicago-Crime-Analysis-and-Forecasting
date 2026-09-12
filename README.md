@@ -8,6 +8,11 @@
 
 Chicago law enforcement must allocate personnel and prevention resources during periods of changing demand. Historical crime reports are analyzed to identify long-term trends, rush-hour differences, holiday peaks, and seasonal patterns. Theft and Battery counts are also forecasted for the next six months to support staffing and resource decisions.
 
+
+![Chicago crime analysis banner](visuals/chicago-crime-banner.png)
+
+
+
 ## Data
 
 * **Source**: [Chicago Police Department: Crimes from 2001 to Present](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/about_data)
